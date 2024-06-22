@@ -12,7 +12,7 @@ internal class Helpers
 
 		foreach (Game game in games)
 		{
-			Console.WriteLine($"{game.Date} - {game.Type}: Score {game.Score}");
+			Console.WriteLine($"{game.Date} - {game.Type}({game.Difficulty} Mode): Score {game.Score}");
 		}
 
 		Console.WriteLine("------------------------------------\n");
@@ -20,13 +20,14 @@ internal class Helpers
 		Console.ReadLine();
 	}
 
-	internal static void AddToHistory(int gameScore, GameType gameType)
+	internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty gameDifficulty)
 	{
 		games.Add(new Game
 		{
 			Date = DateTime.Now,
 			Score = gameScore,
-			Type = gameType
+			Type = gameType,
+			Difficulty = gameDifficulty
 		});
 	}
 
@@ -42,6 +43,98 @@ internal class Helpers
 		{
 			result[0] = random.Next(1, 101);
 			result[1] = random.Next(1, 101);
+		}
+
+		return result;
+	}
+
+	internal static int[] GetNumbers(GameType operation, GameDifficulty difficulty)
+	{
+		Random random = new();
+		int[] result = new int[2];
+
+		switch (operation)
+		{
+			case GameType.Addition:
+				if (difficulty == GameDifficulty.Easy)
+				{
+					result[0] = random.Next(1, 11);
+					result[1] = random.Next(1, 11);
+				}
+				else if (difficulty == GameDifficulty.Moderate)
+				{
+					result[0] = random.Next(1, 21);
+					result[1] = random.Next(1, 21);
+				}
+				else
+				{
+					result[0] = random.Next(1, 51);
+					result[1] = random.Next(1, 51);
+				}
+				break;
+			case GameType.Subtraction:
+				if (difficulty == GameDifficulty.Easy)
+				{
+					do
+					{
+						result[0] = random.Next(1, 11);
+						result[1] = random.Next(1, 11);
+					} while (result[1] > result[0]);
+				}
+				else if (difficulty == GameDifficulty.Moderate)
+				{
+					result[0] = random.Next(1, 21);
+					result[1] = random.Next(1, 21);
+				}
+				else
+				{
+					result[0] = random.Next(1, 51);
+					result[1] = random.Next(1, 51);
+				}
+				break;
+			case GameType.Multiplication:
+				if (difficulty == GameDifficulty.Easy)
+				{
+					result[0] = random.Next(1, 6);
+					result[1] = random.Next(1, 6);
+				}
+				else if (difficulty == GameDifficulty.Moderate)
+				{
+					result[0] = random.Next(1, 12);
+					result[1] = random.Next(1, 12);
+				}
+				else
+				{
+					result[0] = random.Next(1, 21);
+					result[1] = random.Next(1, 21);
+				}
+				break;
+			case GameType.Division:
+				if (difficulty == GameDifficulty.Easy)
+				{
+					do
+					{
+						result[0] = random.Next(1, 21);
+						result[1] = random.Next(1, 21);
+					} while (result[0] % result[1] != 0);
+				}
+				else if (difficulty == GameDifficulty.Moderate)
+				{
+					do
+					{
+						result[0] = random.Next(1, 101);
+						result[1] = random.Next(1, 101);
+					} while (result[0] % result[1] != 0);
+				}
+				else
+				{
+					do
+					{
+						result[0] = random.Next(1, 201);
+						result[1] = random.Next(1, 201);
+					} while (result[0] % result[1] != 0);
+				}
+				break;
 		}
 
 		return result;

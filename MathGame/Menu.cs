@@ -11,6 +11,7 @@ internal class Menu
 		Console.WriteLine($"Welcome to The Math Game, {name}.\nThe time is {date.Hour}:{date.Minute} on {date.DayOfWeek}.\n");
 		Console.WriteLine("Press eny key for game menu.");
 		Console.ReadLine();
+		GameDifficulty difficulty = new();
 		bool firstRun = true;
 		bool playGame = true;
 		do
@@ -37,16 +38,20 @@ Q - Quit");
 						Helpers.PrintGames();
 						break;
 					case "a":
-						gameEngine.AdditionGame("Addition Game");
+						difficulty = GetDifficulty();
+						gameEngine.AdditionGame("Addition Game", difficulty);
 						break;
 					case "s":
-						gameEngine.SubtractionGame("Subtraction Game");
+						difficulty = GetDifficulty();
+						gameEngine.SubtractionGame("Subtraction Game", difficulty);
 						break;
 					case "m":
-						gameEngine.MultiplicationGame("Multiplication Game");
+						difficulty = GetDifficulty();
+						gameEngine.MultiplicationGame("Multiplication Game", difficulty);
 						break;
 					case "d":
-						gameEngine.DivisionGame("Division Game");
+						difficulty = GetDifficulty();
+						gameEngine.DivisionGame("Division Game", difficulty);
 						break;
 					case "r":
 						gameEngine.RandomGame("Random Game");
@@ -61,5 +66,42 @@ Q - Quit");
 						break;
 				}
 		} while (playGame);
+	}
+
+	internal GameDifficulty GetDifficulty()
+	{
+		GameDifficulty result = new();
+		bool validEntry = true;
+		Console.WriteLine($@"Please select a diificulty level from the list below:
+1 - Easy
+2 - Moderate
+3 - Hard");
+		Console.WriteLine("------------------------------------------------------");
+		do
+		{
+			validEntry = true;
+			Console.Write("Difficulty Selection: ");
+
+			string? difficultySelected = Console.ReadLine();
+
+			if (difficultySelected != null)
+				switch (difficultySelected)
+				{
+					case "1":
+						result = GameDifficulty.Easy;
+						break;
+					case "2":
+						result = GameDifficulty.Moderate;
+						break;
+					case "3":
+						result = GameDifficulty.Hard;
+						break;
+					default:
+						Console.WriteLine("Invalid Entry. Please enter a valid difficulty choice (1, 2, or 3).");
+						validEntry = false;
+						break;
+				}
+		} while (!validEntry);
+		return result;
 	}
 }
