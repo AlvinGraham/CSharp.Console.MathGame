@@ -6,7 +6,10 @@ internal class GameEngine
 	internal void AdditionGame(string message, GameDifficulty difficulty)
 	{
 		int score = 0;
+		DateTime gameStart = new();
+		DateTime gameEnd = new();
 
+		gameStart = DateTime.Now;
 		for (int i = 0; i < 5; i++)
 		{
 			Console.Clear();
@@ -29,8 +32,11 @@ internal class GameEngine
 				Console.ReadLine();
 			}
 		}
+		gameEnd = DateTime.Now;
+		TimeSpan gameTime = gameEnd - gameStart;
 
 		Console.WriteLine($"Game over. Your score is {score} ({(score / 5.0):P2})");
+		Console.WriteLine($"This game took {gameTime.Minutes} minute{(gameTime.Minutes != 1 ? "s" : "")} and {gameTime.Seconds} seconds to complete.");
 		Helpers.AddToHistory(score, GameType.Addition, difficulty);
 
 		Console.Write("Press any key to return to main menu.");
