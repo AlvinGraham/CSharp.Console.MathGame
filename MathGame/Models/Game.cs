@@ -7,6 +7,7 @@ internal class Game
 	public GameType Type { get; set; }
 	public GameDifficulty Difficulty { get; set; }
 	public TimeSpan Duration { get; set; }
+	public int Rounds { get; set; }
 }
 
 internal enum GameType
@@ -14,7 +15,8 @@ internal enum GameType
 	Addition,
 	Subtraction,
 	Division,
-	Multiplication
+	Multiplication,
+	Random
 }
 
 internal enum GameDifficulty

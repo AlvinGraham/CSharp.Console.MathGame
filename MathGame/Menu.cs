@@ -9,9 +9,11 @@ internal class Menu
 	{
 		Console.Clear();
 		Console.WriteLine($"Welcome to The Math Game, {name}.\nThe time is {date.Hour}:{date.Minute} on {date.DayOfWeek}.\n");
-		Console.WriteLine("Press eny key for game menu.");
+		Console.WriteLine("Press any key for game menu.");
 		Console.ReadLine();
 		GameDifficulty difficulty = new();
+		int rounds;
+
 		bool firstRun = true;
 		bool playGame = true;
 		do
@@ -39,22 +41,28 @@ Q - Quit");
 						break;
 					case "a":
 						difficulty = GetDifficulty();
-						gameEngine.AdditionGame("Addition Game", difficulty);
+						rounds = GetRounds();
+						gameEngine.AdditionGame("Addition Game", difficulty, rounds);
 						break;
 					case "s":
 						difficulty = GetDifficulty();
-						gameEngine.SubtractionGame("Subtraction Game", difficulty);
+						rounds = GetRounds();
+						gameEngine.SubtractionGame("Subtraction Game", difficulty, rounds);
 						break;
 					case "m":
 						difficulty = GetDifficulty();
-						gameEngine.MultiplicationGame("Multiplication Game", difficulty);
+						rounds = GetRounds();
+						gameEngine.MultiplicationGame("Multiplication Game", difficulty, rounds);
 						break;
 					case "d":
 						difficulty = GetDifficulty();
-						gameEngine.DivisionGame("Division Game", difficulty);
+						rounds = GetRounds();
+						gameEngine.DivisionGame("Division Game", difficulty, rounds);
 						break;
 					case "r":
-						gameEngine.RandomGame("Random Game");
+						difficulty = GetDifficulty();
+						rounds = GetRounds();
+						gameEngine.RandomGame("Random Game", difficulty, rounds);
 						break;
 					case "q":
 						Console.WriteLine("You selected quit the game.");
@@ -66,6 +74,30 @@ Q - Quit");
 						break;
 				}
 		} while (playGame);
+	}
+
+	internal int GetRounds()
+	{
+		bool validEntry = true;
+		int result;
+
+		do
+		{
+			validEntry = true;
+			Console.Write("How many rounds would you like to play? ");
+
+			string? roundsSelected = Console.ReadLine();
+
+			if (!Int32.TryParse(roundsSelected, out result))
+			{
+				Console.WriteLine("Invalid Entry. Please enter a valid number of rounds (whole number.");
+				validEntry = false;
+			}
+			else
+				validEntry = true;
+
+		} while (!validEntry);
+		return result;
 	}
 
 	internal GameDifficulty GetDifficulty()

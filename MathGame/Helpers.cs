@@ -12,7 +12,7 @@ internal class Helpers
 
 		foreach (Game game in games)
 		{
-			Console.WriteLine($"{game.Date} - {game.Type}({game.Difficulty} Mode): Score {game.Score} (Duration: {game.Duration.Minutes}:{game.Duration.Seconds})");
+			Console.WriteLine($"{game.Date} - {game.Type} ({game.Difficulty} Mode / {game.Rounds} rounds): Score {game.Score} of {game.Rounds} (Duration: {game.Duration.Minutes}:{game.Duration.Seconds})");
 		}
 
 		Console.WriteLine("------------------------------------\n");
@@ -20,7 +20,7 @@ internal class Helpers
 		Console.ReadLine();
 	}
 
-	internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty gameDifficulty, TimeSpan gameDuration)
+	internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty gameDifficulty, TimeSpan gameDuration, int rounds)
 	{
 		games.Add(new Game
 		{
@@ -28,7 +28,8 @@ internal class Helpers
 			Score = gameScore,
 			Type = gameType,
 			Difficulty = gameDifficulty,
-			Duration = gameDuration
+			Duration = gameDuration,
+			Rounds = rounds
 		});
 	}
 
