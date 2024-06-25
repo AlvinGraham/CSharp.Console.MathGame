@@ -12,22 +12,23 @@ internal class Helpers
 
 		foreach (Game game in games)
 		{
-			Console.WriteLine($"{game.Date} - {game.Type}({game.Difficulty} Mode): Score {game.Score}");
+			Console.WriteLine($"{game.Date} - {game.Type}({game.Difficulty} Mode): Score {game.Score} (Duration: {game.Duration.Minutes}:{game.Duration.Seconds})");
 		}
 
 		Console.WriteLine("------------------------------------\n");
-		Console.Write("Press any key to return to main menu.");
+		Console.Write("Press Enter to return to main menu.");
 		Console.ReadLine();
 	}
 
-	internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty gameDifficulty)
+	internal static void AddToHistory(int gameScore, GameType gameType, GameDifficulty gameDifficulty, TimeSpan gameDuration)
 	{
 		games.Add(new Game
 		{
 			Date = DateTime.Now,
 			Score = gameScore,
 			Type = gameType,
-			Difficulty = gameDifficulty
+			Difficulty = gameDifficulty,
+			Duration = gameDuration
 		});
 	}
 

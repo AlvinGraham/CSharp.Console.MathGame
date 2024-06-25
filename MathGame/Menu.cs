@@ -61,7 +61,7 @@ Q - Quit");
 						playGame = false;
 						break;
 					default:
-						Console.WriteLine("Invalid Input. Press any key to select a valid entry.");
+						Console.WriteLine("Invalid Input. Press Enter to select a valid entry.");
 						Console.ReadLine();
 						break;
 				}
